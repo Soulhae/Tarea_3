@@ -16,7 +16,6 @@ void * firstMap(HashMap * table);
 
 void * nextMap(HashMap * table);
 
-
 void enlarge(HashMap * map);
 
 #endif /* HashMap_h */

@@ -4,6 +4,7 @@
 #include "list.h"
 #include "functions.h"
 #include "hashmap.h"
+#include "treemap.h"
 
 int main(){
     List* ciudades = createList();
