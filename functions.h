@@ -7,8 +7,14 @@ typedef struct Ciudad Ciudad;
 
 typedef struct Recorrido Recorrido;
 
-void LeerArchivo(List* ciudades);
+void menu();
 
-Recorrido * RutaAleatoria(List* ciudades, HashMap* recorridos);
+void leer_archivo(List* ciudades);
+
+int distancia_dos_entregas(int entrega1X, int entrega1Y, int entrega2X, int entrega2Y);
+
+void copiar_Ciudad(Ciudad* original, List* list);
+
+Recorrido *ruta_aleatoria(List* ciudades, HashMap* recorridos);
 
 #endif /* FUNCTIONS_H */
