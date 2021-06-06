@@ -10,6 +10,8 @@
                 "${fileDirname}\\functions.c",
                 "${fileDirname}\\hashmap.c",
                 "${fileDirname}\\list.c",
+                "${fileDirname}\\treemap.c",
+
                 "-o",
                 "${fileDirname}\\main.exe"
             ],

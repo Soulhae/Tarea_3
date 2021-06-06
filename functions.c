@@ -164,7 +164,6 @@ void mostrar_rutas(TreeMap *rutas){
 
 }
 
-/* - ARREGLAR - */
 /* Se implementa un mapa ordenado con el fin de guardar las distancias ordenadas de menor a mayor, con su respectiva id */
 void entregas_cercanas(List* entregas, TreeMap* distancias, int x, int y){
 
@@ -180,11 +179,17 @@ void entregas_cercanas(List* entregas, TreeMap* distancias, int x, int y){
 
     /* Para imprimir las tres primeras entregas ordendas por distancia */
     Entrega *aux = firstTreeMap(distancias);
-    if (aux == NULL) printf("No hay entregas disponibles.\n");
+    if (aux == NULL) 
+    {
+        printf("No hay entregas disponibles.\n");
+        return;
+    }
+
+    printf("Las 3 entregas mas cercanas son: \n");
+    printf("ID   Distancia\n");
     for (int i = 0 ; i < 3 ; i++){
         printf("%d %.2lf\n", aux->id, aux->distancia_punto);
         aux = nextTreeMap(distancias);
     }
-    printf("fin\n");
     
 }

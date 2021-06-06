@@ -73,6 +73,7 @@ int main(){
                 entregas_cercanas(entregas, distancias, x, y);
                 break;
             case 4: /* Generar ruta */
+                
                 break;
             case 5:; /* Generar ruta aleatoria */
                 Ruta* ruta = ruta_aleatoria(entregas, rutas);

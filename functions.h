@@ -20,8 +20,6 @@ Ruta *ruta_aleatoria(List* entregas, TreeMap* rutas);
 
 void entregas_cercanas(List* entregas, TreeMap* distancias, int x, int y);
 
-int lower_than_int(void* key1, void* key2);
-
 void mostrar_rutas(TreeMap *rutas);
 
 #endif /* FUNCTIONS_H */
