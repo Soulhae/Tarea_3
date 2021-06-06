@@ -3,18 +3,20 @@
 #include "list.h"
 #include "hashmap.h"
 
-typedef struct Ciudad Ciudad;
+typedef struct Entrega Entrega;
 
-typedef struct Recorrido Recorrido;
+typedef struct Ruta Ruta;
 
 void menu();
 
-void leer_archivo(List* ciudades);
+void leer_archivo(List* entregas);
 
 int distancia_dos_entregas(int entrega1X, int entrega1Y, int entrega2X, int entrega2Y);
 
-void copiar_Ciudad(Ciudad* original, List* list);
+void copiar_Ciudad(Entrega* original, List* list);
 
-Recorrido *ruta_aleatoria(List* ciudades, HashMap* recorridos);
+Ruta *ruta_aleatoria(List* entregas, HashMap* rutas);
+
+void mostrar_rutas(HashMap *rutas);
 
 #endif /* FUNCTIONS_H */
