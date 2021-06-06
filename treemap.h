@@ -3,7 +3,7 @@
 
 typedef struct TreeMap TreeMap;
 
-TreeMap * createTreeMap(int (*lower_than_int) (void* key1, void* key2));
+TreeMap * createTreeMap(double (*lower_than_double) (void* key1, void* key2));
 
 void insertTreeMap(TreeMap * tree, void* key, void * value);
 

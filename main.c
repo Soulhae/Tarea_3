@@ -32,10 +32,9 @@ int main(){
                 break;
             case 2:; /* Distancia entre dos entregas */
                 char coord1[50], coord2[50];
-                int x1, y1, x2, y2, distancia;
+                int x1, y1, x2, y2;
                 printf("Ingrese la primera coordenada (x,y): ");
                 scanf("%s", coord1);
-                getchar();
                 printf("Ingrese la segunda coordenada (x,y): ");
                 scanf("%s", coord2);
 
@@ -48,11 +47,23 @@ int main(){
                 token = strtok(NULL, ",");
                 y2 = atoi(token);
 
-                distancia = distancia_dos_entregas(x1, y1, x2, y2);
-                printf("\nLa distancia entre las dos entregas es: %d\n", distancia);
+                double distancia = distancia_dos_entregas(x1, y1, x2, y2);
+                printf("\nLa distancia entre las dos entregas es: %.2lf\n", distancia);
 
                 break;
             case 3:; /* Mostrar las tres entregas mas cercanas de acuerdo a coord. ingresadas */
+                char coord[50];
+                int x, y;
+                printf("Ingrese las coordenadas (x,y): ");
+                scanf("%s", coord);
+                getchar();
+
+                token = strtok(coord, ",");
+                x = atoi(token);
+                token = strtok(NULL, ",");
+                y = atoi(token);
+
+                entregas_cercadas(entregas, x, y);
                 break;
             case 4: /* Generar ruta */
                 break;

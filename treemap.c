@@ -16,7 +16,7 @@ struct TreeNode {
 struct TreeMap {
     TreeNode * root;
     TreeNode * current;
-    int (*lower_than) (void* key1, void* key2);
+    double (*lower_than) (void* key1, void* key2);
 };
 
 int is_equal(TreeMap* tree, void* key1, void* key2){
@@ -34,7 +34,7 @@ TreeNode * createTreeNode(void* key, void * value) {
     return new;
 }
 
-TreeMap * createTreeMap(int (*lower_than) (void* key1, void* key2)) {
+TreeMap * createTreeMap(double (*lower_than) (void* key1, void* key2)) {
     TreeMap* new = (TreeMap*)malloc(sizeof(TreeMap));
     if (!new) return NULL;
     new->root = NULL;

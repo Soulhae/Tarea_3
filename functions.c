@@ -10,12 +10,13 @@
 typedef struct{
    int id; /* id */
    int coordenadas[2]; /* [0] -> x - [1] -> y */
+   double distancia_punto;
 }Entrega;
 
 typedef struct{
    List* recorridas;
    List* faltantes;
-   int distancia_recorrida;
+   double distancia_recorrida;
    char nombre[20];
 }Ruta;
 
@@ -67,8 +68,8 @@ void leer_archivo(List* entregas){
     }
 }
 
-int distancia_dos_entregas(int entrega1X, int entrega1Y, int entrega2X, int entrega2Y){
-    return (int)sqrt((entrega1X-entrega2X)*(entrega1X-entrega2X) + (entrega1Y-entrega2Y)*(entrega1Y-entrega2Y));
+double distancia_dos_entregas(int entrega1X, int entrega1Y, int entrega2X, int entrega2Y){
+    return (double) sqrt((entrega1X-entrega2X)*(entrega1X-entrega2X) + (entrega1Y-entrega2Y)*(entrega1Y-entrega2Y));
 }
 
 void copiar_Ciudad(Entrega* original, List* list){
@@ -138,7 +139,7 @@ Ruta *ruta_aleatoria(List* entregas, HashMap* rutas){
         aux2 = nextList(ruta->recorridas);
     }
 
-    printf("\nLa distancia total recorrida es: %d\n",ruta->distancia_recorrida);
+    printf("\nLa distancia total recorrida es: %.2lf\n",ruta->distancia_recorrida);
     return ruta;
 
 }
@@ -146,9 +147,9 @@ Ruta *ruta_aleatoria(List* entregas, HashMap* rutas){
 void mostrar_rutas(HashMap *rutas){
 
     Ruta *iterador = firstMap(rutas);
-    printf("- Rutas -\n");
+    printf("- Rutas -\n\n");
     while(iterador){
-        printf("Nombre ruta: %s\n", iterador->nombre);
+        printf("Nombre ruta: %s", iterador->nombre);
         Entrega* aux = firstList(iterador->recorridas);
         printf("La secuencia de la ruta es: ");
         printf("%d ",aux->id);
@@ -157,8 +158,42 @@ void mostrar_rutas(HashMap *rutas){
             printf("%d ",aux2->id);
             aux2 = nextList(iterador->recorridas);
         }
-        printf("\nLa distancia total recorrida es: %d\n\n",iterador->distancia_recorrida);
+        printf("\nLa distancia total recorrida es: %.2lf\n\n",iterador->distancia_recorrida);
         iterador = nextMap(rutas);
     }
 
+}
+
+double lower_than_double(void* key1, void* key2){
+    double k1 = *((double*) (key1));
+    double k2 = *((double*) (key2));
+    return k1<k2;
+}
+
+/* - ARREGLAR - */
+/* Se implementa un mapa ordenado con el fin de guardar las distancias ordenadas de menor a mayor, con su respectiva id */
+void entregas_cercadas(List* entregas, int x, int y){
+
+    TreeMap *distancias = createTreeMap(lower_than_double);
+
+    Entrega *aux_iterador = lastList(entregas);
+    int cantidad = aux_iterador->id;
+    Entrega *iterador = firstList(entregas);
+    for(int i = 0 ; i < cantidad ; i++){
+        iterador->distancia_punto = distancia_dos_entregas(iterador->coordenadas[0], iterador->coordenadas[1], x, y);
+        printf("%d %.2lf\n", iterador->id, iterador->distancia_punto);
+        insertTreeMap(distancias, &iterador->distancia_punto, iterador);
+        iterador = nextList(entregas);
+    }
+    printf("\n");
+
+    /* Para imprimir las tres primeras entregas ordendas por distancia */
+    Entrega *aux = firstTreeMap(distancias);
+    if (aux == NULL) printf("No hay entregas disponibles.\n");
+    while (aux){
+        printf("%d %.2lf\n", aux->id, aux->distancia_punto);
+        aux = nextTreeMap(distancias);
+    }
+    printf("fin\n");
+    
 }
