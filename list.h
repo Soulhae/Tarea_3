@@ -19,13 +19,15 @@ void pushBack(List * list, const void * data);
 
 void pushCurrent(List * list, const void * data);
 
-void * popFront(List * list);
+void popFront(List * list);
 
-void * popBack(List * list);
+void popBack(List * list);
 
-void * popCurrent(List * list);
+void popCurrent(List * list);
 
 void cleanList(List * list);
+
+int listSize(List * list); 
 
 #endif /* List_h */
 

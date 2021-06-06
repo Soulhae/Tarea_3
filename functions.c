@@ -215,23 +215,23 @@ double lower_than_double2(void* key1, void* key2){
 void crear_ruta(List *entregas, TreeMap *rutas, int x, int y){
 
     double distancia_total = 0;
+
     Ruta* ruta = (Ruta *)calloc(1,sizeof(Ruta));
     ruta->faltantes = createList();
     ruta->recorridas = createList();
     ruta->faltantes = entregas;
 
-    Entrega *aux_iterador = lastList(entregas);
-    int cantidad = aux_iterador->id;
-    for(int i = 0 ; i < cantidad ; i++){
+    while(listSize(ruta->faltantes) != 0){
 
-        Entrega *aux_iterador2 = lastList(entregas);
-        int cantidad2 = aux_iterador2->id;
         TreeMap *distancias = createTreeMap(lower_than_double2);
-        Entrega *entrega = firstList(entregas);
-        for(int i = 0 ; i < cantidad2 ; i++){
+        Entrega *entrega = firstList(ruta->faltantes);
+
+        int cont = listSize(ruta->faltantes);
+
+        for(int i = 0 ; i < cont ; i++){
             entrega->distancia_punto = distancia_dos_entregas(entrega->coordenadas[0], entrega->coordenadas[1], x, y);
             insertTreeMap(distancias, &entrega->distancia_punto, entrega);
-            entrega = nextList(entregas);
+            entrega = nextList(ruta->faltantes);
         }
 
         Entrega *iterador = firstTreeMap(distancias);
@@ -245,20 +245,30 @@ void crear_ruta(List *entregas, TreeMap *rutas, int x, int y){
         int id;
         scanf("%d", &id);
 
-        entrega = firstList(entregas);
-        for(int i = 0 ; i < cantidad2 ; i++){
+        entrega = firstList(ruta->faltantes);
+
+        for(int i = 0 ; i < cont ; i++){
             if(entrega->id == id){
+                printf("encontrado\n");
+                sleep(1);
                 distancia_total += distancia_dos_entregas(entrega->coordenadas[0], entrega->coordenadas[1], x, y);
                 copiar_Ciudad(entrega, ruta->recorridas);
-                popCurrent(entregas);
+                printf("copiado\n");
+                sleep(1);
+                popCurrent(ruta->faltantes);
+                printf("eliminado\n");
+                sleep(1);
                 x = entrega->coordenadas[0];
                 y = entrega->coordenadas[1];
                 break;
             }
-            entrega = nextList(entregas);
+            entrega = nextList(ruta->faltantes);
         }
         
     }
+
+    printf("sale while\n");
+    sleep(3);
 
     ruta->distancia_recorrida = distancia_total;
 

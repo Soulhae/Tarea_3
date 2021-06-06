@@ -15,6 +15,7 @@ struct List {
     Node * head;
     Node * tail;
     Node * current;
+    int size;
 };
 
 typedef List List;
@@ -34,6 +35,7 @@ List * createList() {
   lista->head = NULL;
   lista->tail=NULL;
   lista->current=NULL;
+  lista->size = 0;
      return lista;
 }
 
@@ -83,6 +85,8 @@ void pushFront(List * list, const void * data) {
     antiguo_head->prev = nuevo_head;
     list->head = nuevo_head;
   }
+
+  list->size++;
   
 }
 
@@ -109,44 +113,38 @@ void pushCurrent(List * list, const void * data) {
     nodo_actual->next = nodo_nuevo;
     nodo_nuevo->prev = nodo_actual;
   }
+
+  list->size++;
 }
 
-void * popFront(List * list) {
+void popFront(List * list) {
     list->current = list->head;
     return popCurrent(list);
 }
 
-void * popBack(List * list) {
+void  popBack(List * list) {
     list->current = list->tail;
     return popCurrent(list);
 }
 
-void * popCurrent(List * list) {
-  Node * nodo_eliminar = list->current;
-  const void* data = nodo_eliminar->data;
-  if(!nodo_eliminar)  return NULL;
-  else if(!nodo_eliminar->next){
-    list->tail = nodo_eliminar->prev;
-    list->current = nodo_eliminar->prev;
-    nodo_eliminar->prev->next = NULL;
-  }
-  else if(!nodo_eliminar->prev){
-    list->head = nodo_eliminar->next;
-    list->current = nodo_eliminar->next;
-    nodo_eliminar->next->prev = NULL;
-  }
-  else{
-    list->current=nodo_eliminar->next;
-    Node * nodo_anterior = nodo_eliminar->prev;
-    nodo_anterior->next = nodo_eliminar->next;
-    nodo_eliminar->next->prev = nodo_anterior;
-  }
-  free(nodo_eliminar);
-  return (void *)data;
+void popCurrent(List* list){
+    if(!list->current) return;
+
+    if (list->current->prev) list->current->prev->next=list->current->next;
+    if(list->current->next) list->current->next->prev=list->current->prev;
+    if(list->head==list->current) list->head=list->current->next;
+    if(list->tail==list->current) list->tail=list->current->prev;
+    free(list->current);
+    list -> size--; 
 }
 
 void cleanList(List * list) {
     while (list->head != NULL) {
         popFront(list);
     }
+}
+
+int listSize(List * list) 
+{
+  return list->size;
 }
