@@ -188,6 +188,7 @@ void * upperBound(TreeMap * tree, void* key) {
 }
 
 void * firstTreeMap(TreeMap * tree) {
+  if(!tree->root) return NULL;
   TreeNode* aux;
   aux = minimum(tree->root);
   tree->current = aux;

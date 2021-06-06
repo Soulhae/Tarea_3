@@ -147,6 +147,11 @@ Ruta *ruta_aleatoria(List* entregas, TreeMap* rutas){
 void mostrar_rutas(TreeMap *rutas){
 
     Ruta *iterador = firstTreeMap(rutas);
+    if(!iterador)
+    {
+        printf("Aun no hay rutas creadas!\n");
+        return;
+    }
     printf("- Rutas -\n\n");
     while(iterador){
         printf("Nombre ruta: %s", iterador->nombre);
@@ -167,9 +172,16 @@ void mostrar_rutas(TreeMap *rutas){
 /* Se implementa un mapa ordenado con el fin de guardar las distancias ordenadas de menor a mayor, con su respectiva id */
 void entregas_cercanas(List* entregas, TreeMap* distancias, int x, int y){
 
+    Entrega *iterador = firstList(entregas);
+    if(!iterador)
+    {
+        printf("Aun no hay entregas ingresadas!\n");
+        return;
+    }
+
     Entrega *aux_iterador = lastList(entregas);
     int cantidad = aux_iterador->id;
-    Entrega *iterador = firstList(entregas);
+
     for(int i = 0 ; i < cantidad ; i++){
         iterador->distancia_punto = distancia_dos_entregas(iterador->coordenadas[0], iterador->coordenadas[1], x, y);
         insertTreeMap(distancias, &iterador->distancia_punto, iterador);
