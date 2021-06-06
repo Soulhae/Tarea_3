@@ -249,26 +249,16 @@ void crear_ruta(List *entregas, TreeMap *rutas, int x, int y){
 
         for(int i = 0 ; i < cont ; i++){
             if(entrega->id == id){
-                printf("encontrado\n");
-                sleep(1);
                 distancia_total += distancia_dos_entregas(entrega->coordenadas[0], entrega->coordenadas[1], x, y);
                 copiar_Ciudad(entrega, ruta->recorridas);
-                printf("copiado\n");
-                sleep(1);
                 popCurrent(ruta->faltantes);
-                printf("eliminado\n");
-                sleep(1);
                 x = entrega->coordenadas[0];
                 y = entrega->coordenadas[1];
                 break;
             }
             entrega = nextList(ruta->faltantes);
         }
-        
     }
-
-    printf("sale while\n");
-    sleep(3);
 
     ruta->distancia_recorrida = distancia_total;
 
