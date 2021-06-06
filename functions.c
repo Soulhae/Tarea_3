@@ -212,6 +212,23 @@ double lower_than_double2(void* key1, void* key2){
     return k1<k2;
 }
 
+
+List * copiarLista(List * lista)
+{
+    List * nuevo = createList();
+    int cont = listSize(lista);
+
+    Entrega * aux = firstList(lista);
+
+    for (int i = 0; i < cont; i++)
+    {
+        pushBack(nuevo, aux);
+        aux = nextList(lista);
+    }
+
+    return nuevo;
+}
+
 void crear_ruta(List *entregas, TreeMap *rutas, int x, int y){
 
     double distancia_total = 0;
@@ -219,7 +236,8 @@ void crear_ruta(List *entregas, TreeMap *rutas, int x, int y){
     Ruta* ruta = (Ruta *)calloc(1,sizeof(Ruta));
     ruta->faltantes = createList();
     ruta->recorridas = createList();
-    ruta->faltantes = entregas;
+    
+    ruta->faltantes = copiarLista(entregas);
 
     while(listSize(ruta->faltantes) != 0){
 
