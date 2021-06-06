@@ -10,10 +10,16 @@ typedef struct Entrega Entrega;
 
 typedef struct Ruta Ruta;
 
+double lower_than_double(void* key1, void* key2){
+    double k1 = *((double*) (key1));
+    double k2 = *((double*) (key2));
+    return k1<k2;
+}
+
 int main(){
 
     List* entregas = createList();
-    HashMap* rutas = createMap(80);
+    TreeMap* rutas = createTreeMap(lower_than_double);
 
     int opcion;
     do{
@@ -63,7 +69,8 @@ int main(){
                 token = strtok(NULL, ",");
                 y = atoi(token);
 
-                entregas_cercadas(entregas, x, y);
+                TreeMap *distancias = createTreeMap(lower_than_double);
+                entregas_cercanas(entregas, distancias, x, y);
                 break;
             case 4: /* Generar ruta */
                 break;

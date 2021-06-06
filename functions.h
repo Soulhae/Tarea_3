@@ -16,12 +16,12 @@ double distancia_dos_entregas(int entrega1X, int entrega1Y, int entrega2X, int e
 
 void copiar_Ciudad(Entrega* original, List* list);
 
-Ruta *ruta_aleatoria(List* entregas, HashMap* rutas);
+Ruta *ruta_aleatoria(List* entregas, TreeMap* rutas);
 
-void entregas_cercadas(List* entregas, int x, int y);
+void entregas_cercanas(List* entregas, TreeMap* distancias, int x, int y);
 
 int lower_than_int(void* key1, void* key2);
 
-void mostrar_rutas(HashMap *rutas);
+void mostrar_rutas(TreeMap *rutas);
 
 #endif /* FUNCTIONS_H */
