@@ -170,7 +170,7 @@ void mostrar_rutas(TreeMap *rutas){
 }
 
 /* Se implementa un mapa ordenado con el fin de guardar las distancias ordenadas de menor a mayor, con su respectiva id */
-void entregas_cercanas(List* entregas, TreeMap* distancias, int x, int y){
+void entregas_cercanas(List* entregas, TreeMap* distancias_cercanas, int x, int y){
 
     Entrega *iterador = firstList(entregas);
     if(!iterador)
@@ -184,13 +184,13 @@ void entregas_cercanas(List* entregas, TreeMap* distancias, int x, int y){
 
     for(int i = 0 ; i < cantidad ; i++){
         iterador->distancia_punto = distancia_dos_entregas(iterador->coordenadas[0], iterador->coordenadas[1], x, y);
-        insertTreeMap(distancias, &iterador->distancia_punto, iterador);
+        insertTreeMap(distancias_cercanas, &iterador->distancia_punto, iterador);
         iterador = nextList(entregas);
     }
     printf("\n");
 
     /* Para imprimir las tres primeras entregas ordendas por distancia */
-    Entrega *aux = firstTreeMap(distancias);
+    Entrega *aux = firstTreeMap(distancias_cercanas);
     if (aux == NULL) 
     {
         printf("No hay entregas disponibles.\n");
@@ -201,7 +201,89 @@ void entregas_cercanas(List* entregas, TreeMap* distancias, int x, int y){
     printf("ID   Distancia\n");
     for (int i = 0 ; i < 3 ; i++){
         printf("%d %.2lf\n", aux->id, aux->distancia_punto);
-        aux = nextTreeMap(distancias);
+        aux = nextTreeMap(distancias_cercanas);
     }
     
+}
+
+double lower_than_double2(void* key1, void* key2){
+    double k1 = *((double*) (key1));
+    double k2 = *((double*) (key2));
+    return k1<k2;
+}
+
+void crear_ruta(List *entregas, TreeMap *rutas, int x, int y){
+
+    double distancia_total = 0;
+    Ruta* ruta = (Ruta *)calloc(1,sizeof(Ruta));
+    ruta->faltantes = createList();
+    ruta->recorridas = createList();
+    ruta->faltantes = entregas;
+
+    Entrega *aux_iterador = lastList(entregas);
+    int cantidad = aux_iterador->id;
+    for(int i = 0 ; i < cantidad ; i++){
+
+        Entrega *aux_iterador2 = lastList(entregas);
+        int cantidad2 = aux_iterador2->id;
+        TreeMap *distancias = createTreeMap(lower_than_double2);
+        Entrega *entrega = firstList(entregas);
+        for(int i = 0 ; i < cantidad2 ; i++){
+            entrega->distancia_punto = distancia_dos_entregas(entrega->coordenadas[0], entrega->coordenadas[1], x, y);
+            insertTreeMap(distancias, &entrega->distancia_punto, entrega);
+            entrega = nextList(entregas);
+        }
+
+        Entrega *iterador = firstTreeMap(distancias);
+        printf("\nID - Distancia\n");
+        while(iterador){
+            printf("%d %.2lf\n", iterador->id, iterador->distancia_punto);
+            iterador = nextTreeMap(distancias);
+        }
+
+        printf("\nIngrese la id de una entrega: ");
+        int id;
+        scanf("%d", &id);
+
+        entrega = firstList(entregas);
+        for(int i = 0 ; i < cantidad2 ; i++){
+            if(entrega->id == id){
+                distancia_total += distancia_dos_entregas(entrega->coordenadas[0], entrega->coordenadas[1], x, y);
+                copiar_Ciudad(entrega, ruta->recorridas);
+                popCurrent(entregas);
+                x = entrega->coordenadas[0];
+                y = entrega->coordenadas[1];
+                break;
+            }
+            entrega = nextList(entregas);
+        }
+        
+    }
+
+    ruta->distancia_recorrida = distancia_total;
+
+    char nombreRecorrido[20];
+    printf("\nRuta creada con exito!\n");
+    printf("\nIngrese el nombre de la ruta: ");
+    getchar();
+    fgets(nombreRecorrido, 20, stdin);
+    strcpy(ruta->nombre,nombreRecorrido);
+
+    while(searchTreeMap(rutas,&ruta->distancia_recorrida)){
+        printf("El nombre ya esta ocupado, intente ingresando otro nombre!: ");
+        fgets(nombreRecorrido, 20, stdin);
+    }
+    insertTreeMap(rutas,&ruta->distancia_recorrida,ruta);
+
+    Entrega* aux = firstList(ruta->recorridas);
+    printf("\nLa secuencia generada de entregas es: ");
+    printf("%d ",aux->id);
+    Entrega* aux2 = nextList(ruta->recorridas);
+    while(aux!=aux2){
+        printf("%d ",aux2->id);
+        aux2 = nextList(ruta->recorridas);
+    }
+
+    printf("\nLa distancia total recorrida es: %.2lf\n",ruta->distancia_recorrida);
+
 }

@@ -18,8 +18,10 @@ void copiar_Ciudad(Entrega* original, List* list);
 
 Ruta *ruta_aleatoria(List* entregas, TreeMap* rutas);
 
-void entregas_cercanas(List* entregas, TreeMap* distancias, int x, int y);
+void entregas_cercanas(List* entregas, TreeMap* distancias_cercanas, int x, int y);
 
 void mostrar_rutas(TreeMap *rutas);
+
+void crear_ruta(List *entregas, TreeMap *rutas, int x, int y);
 
 #endif /* FUNCTIONS_H */

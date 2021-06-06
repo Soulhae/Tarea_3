@@ -69,10 +69,22 @@ int main(){
                 token = strtok(NULL, ",");
                 y = atoi(token);
 
-                TreeMap *distancias = createTreeMap(lower_than_double);
-                entregas_cercanas(entregas, distancias, x, y);
+                TreeMap *distancias_cercanas = createTreeMap(lower_than_double);
+                entregas_cercanas(entregas, distancias_cercanas, x, y);
                 break;
-            case 4: /* Generar ruta */
+            case 4:; /* Generar ruta */
+                printf("Ingrese las coordenadas (x,y): ");
+                scanf("%s", coord);
+                getchar();
+
+                token = strtok(coord, ",");
+                x = atoi(token);
+                token = strtok(NULL, ",");
+                y = atoi(token);
+
+                TreeMap *distancias = createTreeMap(lower_than_double);
+                crear_ruta(entregas, rutas, x, y);
+                break;
                 
                 break;
             case 5:; /* Generar ruta aleatoria */
