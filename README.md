@@ -12,6 +12,8 @@
 * Para el caso 8 se utilizo un algortimo voraz ya que no logramos terminar y hacer funcionar 
 * el algoritmo de busqueda a tiempo. Entendemos que no es necesariamente la ruta mas corta,
 * pero es la solucion que encontramos por el momento.
+*
+* Caso 6: se cae al llamar a eraseTreeMap :/
 
 ## Aspectos positivos y a mejorar por el grupo
 
