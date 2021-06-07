@@ -90,7 +90,8 @@ int main(){
             case 5:; /* Generar ruta aleatoria */
                 Ruta* ruta = ruta_aleatoria(entregas, rutas);
                 break;
-            case 6: /* Mejorar una ruta */
+            case 6:; /* Mejorar una ruta */
+                mejorar_ruta(rutas);
                 break;
             case 7: /* Mostrar todas las rutas */
                 mostrar_rutas(rutas);
