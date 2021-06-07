@@ -84,7 +84,13 @@ void copiar_Ciudad(Entrega* original, List* list){
     pushBack(list,entrega);
 }
 
-Ruta *ruta_aleatoria(List* entregas, TreeMap* rutas){ //Se creara una ruta aleatoria para las entregas
+void ruta_aleatoria(List* entregas, TreeMap* rutas){ //Se creara una ruta aleatoria para las entregas
+
+    Entrega *iterador = firstList(entregas);
+    if(!iterador){
+        printf("Aun no hay entregas ingresadas!\n");
+        return;
+    }
 
     char coord[50], *token;
     int punto_x, punto_y;
@@ -136,7 +142,43 @@ Ruta *ruta_aleatoria(List* entregas, TreeMap* rutas){ //Se creara una ruta aleat
     }
 
     printf("\nLa distancia total recorrida es: %.2lf\n",ruta->distancia_recorrida);
-    return ruta;
+
+}
+
+void obtener_distancia(List *entregas){
+
+    int id1, id2;
+    printf("Ingrese las id's de las entregas (id1 id2): ");
+    scanf("%d %d", &id1, &id2);
+
+    Entrega *primero = 0;
+    Entrega *segundo = 0;
+    int cont = listSize(entregas);
+
+    /* Busca los datos de la primera id */
+    Entrega *entrega = firstList(entregas);
+    for(int i = 0; i < cont; i++){
+        if(entrega->id == id1){
+            primero = entrega;
+            break;
+        }
+        entrega = nextList(entregas);
+    }
+
+    /* Busca los datos de la segunda id */
+    entrega = firstList(entregas);
+    for(int i = 0; i < cont; i++){
+        if(entrega->id == id2){
+            segundo = entrega;
+            break;
+        }
+        entrega = nextList(entregas);
+    }
+
+    //printf("%d %d\n", primero->id, segundo->id);
+
+    double distancia = distancia_dos_entregas(primero->coordenadas[0], primero->coordenadas[1], segundo->coordenadas[0], segundo->coordenadas[1]);
+    printf("\nLa distancia entre las dos entregas es: %.2lf\n", distancia);
 
 }
 
@@ -456,16 +498,8 @@ void mejor_ruta(List *entregas, TreeMap *rutas, int x, int y){
             entrega = nextList(ruta->faltantes);
         }
 
-        /* COMPRUEBA QUE TOME LOS PRIMEROS VALORES */
-        Entrega *iterador = firstTreeMap(distancias);
-        printf("\nID - Distancia\n");
-        while(iterador){
-            printf("%d %.2lf\n", iterador->id, iterador->distancia_punto);
-            iterador = nextTreeMap(distancias);
-        }
-
         int id;
-        iterador = firstTreeMap(distancias);
+        Entrega *iterador = firstTreeMap(distancias);
         id = iterador->id;
 
         entrega = firstList(ruta->faltantes);
@@ -485,7 +519,7 @@ void mejor_ruta(List *entregas, TreeMap *rutas, int x, int y){
     ruta->distancia_recorrida = distancia_total;
 
     char nombreRecorrido[20];
-    strcpy(nombreRecorrido,"ruta optima");
+    strcpy(nombreRecorrido,"ruta optima\n");
     strcpy(ruta->nombre,nombreRecorrido);
     insertTreeMap(rutas,&ruta->distancia_recorrida,ruta);
 

@@ -13,9 +13,11 @@ void leer_archivo(List* entregas);
 
 double distancia_dos_entregas(int entrega1X, int entrega1Y, int entrega2X, int entrega2Y);
 
+void obtener_distancia(List *entregas);
+
 void copiar_Ciudad(Entrega* original, List* list);
 
-Ruta *ruta_aleatoria(List* entregas, TreeMap* rutas);
+void ruta_aleatoria(List* entregas, TreeMap* rutas);
 
 void entregas_cercanas(List* entregas, TreeMap* distancias_cercanas, int x, int y);
 
