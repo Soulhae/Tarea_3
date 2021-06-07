@@ -4,7 +4,6 @@
 #include <string.h>
 #include <math.h>
 #include "list.h"
-#include "hashmap.h"
 #include "treemap.h"
 
 typedef struct{

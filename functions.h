@@ -1,7 +1,6 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 #include "list.h"
-#include "hashmap.h"
 #include "treemap.h"
 
 typedef struct Entrega Entrega;

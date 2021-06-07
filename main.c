@@ -3,7 +3,6 @@
 #include <string.h>
 #include "list.h"
 #include "functions.h"
-#include "hashmap.h"
 #include "treemap.h"
 
 typedef struct Entrega Entrega;
