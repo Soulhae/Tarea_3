@@ -89,7 +89,7 @@ int main(){
                 Ruta* ruta = ruta_aleatoria(entregas, rutas);
                 break;
             case 6:; /* Mejorar una ruta */
-                mejorar_ruta(rutas);
+                mejorar_ruta(rutas, entregas);
                 break;
             case 7: /* Mostrar todas las rutas */
                 mostrar_rutas(rutas);

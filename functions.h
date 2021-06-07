@@ -23,7 +23,7 @@ void mostrar_rutas(TreeMap *rutas);
 
 void crear_ruta(List *entregas, TreeMap *rutas, int x, int y);
 
-void mejorar_ruta(TreeMap* rutas);
+void mejorar_ruta(TreeMap* rutas, List *entregas);
 
 void mejor_ruta(List *entregas, TreeMap *rutas, int x, int y);
 
