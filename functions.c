@@ -64,8 +64,8 @@ void leer_archivo(List* entregas){
     }
 
     if (fclose(archivo_entrada) == EOF){
-        printf("El archivo no se pudo cerrar correctamente.");
-    }
+        printf("El archivo no se pudo cerrar correctamente.\n");
+    }else printf("El archivo se leyo correctamente.\n");
 }
 
 double distancia_dos_entregas(int entrega1X, int entrega1Y, int entrega2X, int entrega2Y){
@@ -124,10 +124,6 @@ Ruta *ruta_aleatoria(List* entregas, TreeMap* rutas){
     fgets(nombreRecorrido, 20, stdin);
     strcpy(ruta->nombre,nombreRecorrido);
 
-    while(searchTreeMap(rutas,&ruta->distancia_recorrida)){
-        printf("El nombre ya esta ocupado, intente ingresando otro nombre!: ");
-        fgets(nombreRecorrido, 20, stdin);
-    }
     insertTreeMap(rutas,&ruta->distancia_recorrida,ruta);
 
     Entrega* aux = firstList(ruta->recorridas);
@@ -268,6 +264,7 @@ void crear_ruta(List *entregas, TreeMap *rutas, int x, int y){
         for(int i = 0 ; i < cont ; i++){
             if(entrega->id == id){
                 distancia_total += distancia_dos_entregas(entrega->coordenadas[0], entrega->coordenadas[1], x, y);
+                printf("Distancia recorrida al momento: %.2lf\n",distancia_total);
                 copiar_Ciudad(entrega, ruta->recorridas);
                 popCurrent(ruta->faltantes);
                 x = entrega->coordenadas[0];
@@ -287,10 +284,6 @@ void crear_ruta(List *entregas, TreeMap *rutas, int x, int y){
     fgets(nombreRecorrido, 20, stdin);
     strcpy(ruta->nombre,nombreRecorrido);
 
-    while(searchTreeMap(rutas,&ruta->distancia_recorrida)){
-        printf("El nombre ya esta ocupado, intente ingresando otro nombre!: ");
-        fgets(nombreRecorrido, 20, stdin);
-    }
     insertTreeMap(rutas,&ruta->distancia_recorrida,ruta);
 
     Entrega* aux = firstList(ruta->recorridas);

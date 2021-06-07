@@ -34,7 +34,6 @@ int main(){
 
             case 1: /* Importar archivo */
                 leer_archivo(entregas);
-                printf("El archivo se leyo correctamente.\n");
                 break;
             case 2:; /* Distancia entre dos entregas */
                 char coord1[50], coord2[50];
