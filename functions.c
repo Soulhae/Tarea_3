@@ -303,5 +303,84 @@ void crear_ruta(List *entregas, TreeMap *rutas, int x, int y){
     }
 
     printf("\nLa distancia total recorrida es: %.2lf\n",ruta->distancia_recorrida);
+}
+
+void mejorar_ruta(TreeMap* rutas)
+{
+    Ruta* aux = firstTreeMap(rutas);
+    if(!aux)
+    {
+        printf("Aun no hay rutas generadas!\n");
+        return;
+    }
+
+    char nombre[50];
+    printf("Ingrese el nombre de la ruta buscada: \n");
+    scanf("%s", &nombre);
+    getchar();
+    
+    while(!aux)
+    {
+        if(strcmp(nombre, aux->nombre) == 0) break;
+        aux = nextTreeMap(rutas);
+    }
+
+    if(!aux)
+    {
+        printf("No se encontro una ruta con ese nombre!\n");
+        return;
+    }
+    
+    printf("Ruta encontrada!\n");
+    
+    Entrega * ciudad = firstList(aux->recorridas);
+    int cont = listSize(aux->recorridas);
+    printf("Ruta: ");
+    for(int i = 0; i < cont; i++)
+    {
+        printf("%i ", ciudad->id);
+        ciudad = nextList(aux->recorridas);
+    }
+    printf("- Distancia recorrida: %.2lf", aux->distancia_recorrida);
+    printf("\n");
+
+    int opcion = 0;
+    while(opcion != 1 && opcion != 2)
+    {   
+        printf("Desea realizar un cambio manual (1) o automatico (2)?: (Ingrese el numero de la opcion)\n");
+        scanf("%i", &opcion);
+    }
+
+    int id1, id2;
+    if (opcion == 1)
+    {
+        printf("Ingrese la ID de los 2 puntos a intercambiar: ");
+        scanf("%i %i", &id1, &id2);
+    }
+    else
+    {
+        id1 = rand() % (cont + 1);
+        do
+        {
+            id2 = rand() % (cont + 1);
+        } while (id1 == id2);
+    }
+
+    printf("Intercambiar %i con %i. \n", id1, id2);
+
+    int primero;
+
+    ciudad = firstList(aux->recorridas);
+    printf("Ruta: ");
+    for(int i = 0; i < cont; i++)
+    {
+        if(ciudad->id == id1 || ciudad->id == id2)
+        printf("%i ", ciudad->id);
+        ciudad = nextList(aux->recorridas);
+    }
+
+
+    
+
 
 }
