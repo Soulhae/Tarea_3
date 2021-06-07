@@ -95,6 +95,7 @@ int main(){
                 mostrar_rutas(rutas);
                 break;
             case 8: /* Generar mejor ruta */
+                Funcion8(rutas, entregas);
                 break;
             case 9: /* Salir */
                 break;
