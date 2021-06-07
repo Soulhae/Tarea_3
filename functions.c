@@ -467,8 +467,17 @@ void mejorar_ruta(TreeMap* rutas, List *entregas){
     printf("Distancia nueva recorrida: %.2lf\n", ruta_modificada->distancia_recorrida);
 
     if (ruta_modificada->distancia_recorrida < aux->distancia_recorrida){
-        eraseTreeMap(rutas, &aux->distancia_recorrida); /* Se cae */
-        insertTreeMap(rutas, &ruta_modificada->distancia_recorrida, ruta_modificada);
+        //deleteNode(rutas, &aux->distancia_recorrida); /* Se cae :( */
+        //insertTreeMap(rutas, &ruta_modificada->distancia_recorrida, ruta_modificada);
+        Ruta *buscado = searchTreeMap(rutas, &aux->distancia_recorrida);
+        int cont_buscado = listSize(ruta_modificada->recorridas);
+        Entrega *iterador_buscado = firstList(ruta_modificada->recorridas);
+        cleanList(buscado->recorridas);
+        for(int i = 0 ; i < cont ; i++){
+            pushBack(buscado->recorridas, iterador_buscado);
+            iterador_buscado = nextList(ruta_modificada->recorridas);
+        }
+        buscado->distancia_recorrida = ruta_modificada->distancia_recorrida;
         printf("La ruta fue modificada!\n");
     }
     else{
