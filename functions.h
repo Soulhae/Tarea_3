@@ -42,6 +42,6 @@ void mejorar_ruta(TreeMap* rutas, List *entregas);
 /* Funcion que genera la mejor ruta, la cual optimiza la distancia total recorrida. */
 void mejor_ruta(List *entregas, TreeMap *rutas, int x, int y);
 
-/* void Funcion8(TreeMap *rutas, List* entregas); Intento fallido de DFS */
+void Funcion8(TreeMap *rutas, List* entregas); /*Intento fallido de DFS */
 
 #endif /* FUNCTIONS_H */
