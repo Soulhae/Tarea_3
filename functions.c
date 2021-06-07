@@ -130,9 +130,6 @@ void ruta_aleatoria(List* entregas, TreeMap* rutas){ //Se creara una ruta aleato
         if(ciudadesRecorrer == NULL) 
             ciudadesRecorrer = first(entregas);
 
-        if(ciudadesRecorrer->id = cantidad) continue;
-
-      
         ruta->distancia_recorrida = distancia_dos_entregas(buscada->coordenadas[0], buscada->coordenadas[1], ciudadesRecorrer->coordenadas[0], ciudadesRecorrer->coordenadas[1])+ruta->distancia_recorrida;
 
         buscada = ciudadesRecorrer;
@@ -477,12 +474,12 @@ void mejorar_ruta(TreeMap* rutas, List *entregas){
         //deleteNode(rutas, &aux->distancia_recorrida); /* Se cae :( */
         //insertTreeMap(rutas, &ruta_modificada->distancia_recorrida, ruta_modificada);
         Ruta *buscado = searchTreeMap(rutas, &aux->distancia_recorrida);
-        int cont_buscado = listSize(ruta_modificada->recorridas);
-        Entrega *iterador_buscado = firstList(ruta_modificada->recorridas);
-        cleanList(buscado->recorridas);
-        for(int i = 0 ; i < cont ; i++){
+
+        Entrega *iterador_buscado = first(ruta_modificada->recorridas);
+        clean(buscado->recorridas);
+        while(iterador_buscado){
             pushBack(buscado->recorridas, iterador_buscado);
-            iterador_buscado = nextList(ruta_modificada->recorridas);
+            iterador_buscado = next(ruta_modificada->recorridas);
         }
         buscado->distancia_recorrida = ruta_modificada->distancia_recorrida;
         printf("La ruta fue modificada!\n");
