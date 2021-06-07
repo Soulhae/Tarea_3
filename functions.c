@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <time.h>
 #include <string.h>
 #include <math.h>
+#include <unistd.h>
 #include "list.h"
 #include "treemap.h"
 
@@ -107,15 +108,13 @@ void ruta_aleatoria(List* entregas, TreeMap* rutas){ //Se creara una ruta aleato
     ruta->recorridas = createList();//Se crea lista de las coordenadas faltantes y recorridas.
     ruta->faltantes = entregas; //Se ingresa a la lista de faltantes todas las coordenadas.
 
-    //srand(getpid());
+    srand(time(NULL));
     int cantidad = rand() % listSize(entregas) + 1; //Se ocupa rand para buscar una ID aleatoriamente.
     Entrega* buscada = first(entregas); //Usamos buscada para buscar la ID
     while(buscada)
     {
         if(buscada->id == cantidad) break;
         buscada = next(entregas); //Ciclo para buscar la ID y actualiza 
-        if(buscada == last(entregas)) 
-            buscada = first(entregas);
     } 
 
     ruta->distancia_recorrida = distancia_dos_entregas(buscada->coordenadas[0], buscada->coordenadas[1], punto_x, punto_y); //Ocupamos la funcion para calcular las coordenadas de la entrega con el punto del usuario.
@@ -124,7 +123,7 @@ void ruta_aleatoria(List* entregas, TreeMap* rutas){ //Se creara una ruta aleato
     Entrega* ciudadesRecorrer = (Entrega*)calloc(1,sizeof(Entrega));
     
     int cont = listSize(entregas);
-    for (int i = 0; i < cont; i++)
+    for (int i = 0; i < cont-1; i++)
     {
         ciudadesRecorrer = next(entregas);
         if(ciudadesRecorrer == NULL) 
