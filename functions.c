@@ -324,12 +324,17 @@ void mejorar_ruta(TreeMap* rutas)
     }
     
     printf("Ruta encontrada!\n");
+
+    int cont = listSize(aux->recorridas);
+
+    int* arreglo = (int *) malloc(cont * sizeof(int));
     
     Entrega * ciudad = firstList(aux->recorridas);
-    int cont = listSize(aux->recorridas);
+    
     printf("Ruta: ");
     for(int i = 0; i < cont; i++)
     {
+        arreglo[i] = ciudad->id;
         printf("%i ", ciudad->id);
         ciudad = nextList(aux->recorridas);
     }
@@ -360,19 +365,67 @@ void mejorar_ruta(TreeMap* rutas)
 
     printf("Intercambiar %i con %i. \n", id1, id2);
 
-    int primero;
+    int primero = 0; 
+    int segundo = 0;
 
     ciudad = firstList(aux->recorridas);
-    printf("Ruta: ");
+
     for(int i = 0; i < cont; i++)
     {
         if(ciudad->id == id1 || ciudad->id == id2)
-        printf("%i ", ciudad->id);
+        {
+            primero = ciudad->id;
+            break;
+        } 
         ciudad = nextList(aux->recorridas);
     }
 
+    if(primero == id1) segundo = id2;
+    else segundo = id1;
 
+    /*
+    double distancia_total = 0;
+
+    Ruta* ruta = (Ruta *)calloc(1,sizeof(Ruta));
+    ruta->faltantes = createList();
+    ruta->recorridas = createList();
     
+    ruta->faltantes = copiarLista(entregas);
+
+    while(listSize(ruta->faltantes) != 0){
+
+        TreeMap *distancias = createTreeMap(lower_than_double2);
+        Entrega *entrega = firstList(ruta->faltantes);
+
+        int cont = listSize(ruta->faltantes);
+
+        for(int j = 0; j < cont; j++)
+        {
+
+        }
+
+        entrega = firstList(ruta->faltantes);
+
+        for(int i = 0 ; i < cont ; i++){
+            if(entrega->id == id){
+                distancia_total += distancia_dos_entregas(entrega->coordenadas[0], entrega->coordenadas[1], x, y);
+                printf("Distancia recorrida al momento: %.2lf\n",distancia_total);
+                copiar_Ciudad(entrega, ruta->recorridas);
+                popCurrent(ruta->faltantes);
+                x = entrega->coordenadas[0];
+                y = entrega->coordenadas[1];
+                break;
+            }
+            entrega = nextList(ruta->faltantes);
+        }
+    }
+
+    ruta->distancia_recorrida = distancia_total;
+
+    */
+
+
+
 
 
 }
