@@ -35,27 +35,9 @@ int main(){
                 leer_archivo(entregas);
                 break;
             case 2:; /* Distancia entre dos entregas */
-                char coord1[50], coord2[50];
-                int x1, y1, x2, y2;
-                printf("Ingrese la primera coordenada (x,y): ");
-                scanf("%s", coord1);
-                printf("Ingrese la segunda coordenada (x,y): ");
-                scanf("%s", coord2);
-
-                token = strtok(coord1, ",");
-                x1 = atoi(token);
-                token = strtok(NULL, ",");
-                y1 = atoi(token);
-                token = strtok(coord2, ",");
-                x2 = atoi(token);
-                token = strtok(NULL, ",");
-                y2 = atoi(token);
-
-                double distancia = distancia_dos_entregas(x1, y1, x2, y2);
-                printf("\nLa distancia entre las dos entregas es: %.2lf\n", distancia);
-
+                obtener_distancia(entregas);
                 break;
-            case 3:; /* Mostrar las tres entregas mas cercanas de acuerdo a coord. ingresadas */
+            case 3:; /* Mostrar las tres entregas mas cercanas de acuerdo a las coordenadas ingresadas */
                 char coord[50];
                 int x, y;
                 printf("Ingrese las coordenadas (x,y): ");
@@ -82,20 +64,28 @@ int main(){
 
                 TreeMap *distancias = createTreeMap(lower_than_double);
                 crear_ruta(entregas, rutas, x, y);
-                break;
                 
                 break;
             case 5:; /* Generar ruta aleatoria */
-                Ruta* ruta = ruta_aleatoria(entregas, rutas);
+                ruta_aleatoria(entregas, rutas);
                 break;
             case 6:; /* Mejorar una ruta */
-                mejorar_ruta(rutas);
+                mejorar_ruta(rutas, entregas);
                 break;
             case 7: /* Mostrar todas las rutas */
                 mostrar_rutas(rutas);
                 break;
-            case 8: /* Generar mejor ruta */
-                Funcion8(rutas, entregas);
+            case 8:; /* Generar mejor ruta */
+                printf("Ingrese las coordenadas (x,y): ");
+                scanf("%s", coord);
+                getchar();
+
+                token = strtok(coord, ",");
+                x = atoi(token);
+                token = strtok(NULL, ",");
+                y = atoi(token);
+
+                mejor_ruta(entregas, rutas, x, y);
                 break;
             case 9: /* Salir */
                 break;
@@ -107,4 +97,6 @@ int main(){
         }
 
     }while(opcion != 9);
+
+    return 0;
 }
