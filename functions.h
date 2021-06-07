@@ -25,6 +25,8 @@ void crear_ruta(List *entregas, TreeMap *rutas, int x, int y);
 
 void mejorar_ruta(TreeMap* rutas);
 
+void mejor_ruta(List *entregas, TreeMap *rutas, int x, int y);
+
 // void Funcion8(TreeMap *rutas, List* entregas); Intento fallido de DFS
 
 #endif /* FUNCTIONS_H */

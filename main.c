@@ -94,8 +94,17 @@ int main(){
             case 7: /* Mostrar todas las rutas */
                 mostrar_rutas(rutas);
                 break;
-            case 8: /* Generar mejor ruta */
-                Funcion8(rutas, entregas);
+            case 8:; /* Generar mejor ruta */
+                printf("Ingrese las coordenadas (x,y): ");
+                scanf("%s", coord);
+                getchar();
+
+                token = strtok(coord, ",");
+                x = atoi(token);
+                token = strtok(NULL, ",");
+                y = atoi(token);
+
+                mejor_ruta(entregas, rutas, x, y);
                 break;
             case 9: /* Salir */
                 break;

@@ -386,6 +386,74 @@ void mejorar_ruta(TreeMap* rutas)
 
 }
 
+void mejor_ruta(List *entregas, TreeMap *rutas, int x, int y){
+
+    double distancia_total = 0;
+    Ruta* ruta = (Ruta *)calloc(1,sizeof(Ruta));
+    ruta->faltantes = createList();
+    ruta->recorridas = createList();
+    
+    ruta->faltantes = copiarLista(entregas);
+
+    while(listSize(ruta->faltantes) != 0){
+
+        TreeMap *distancias = createTreeMap(lower_than_double2);
+        Entrega *entrega = firstList(ruta->faltantes);
+
+        int cont = listSize(ruta->faltantes);
+
+        for(int i = 0 ; i < cont ; i++){
+            entrega->distancia_punto = distancia_dos_entregas(entrega->coordenadas[0], entrega->coordenadas[1], x, y);
+            insertTreeMap(distancias, &entrega->distancia_punto, entrega);
+            entrega = nextList(ruta->faltantes);
+        }
+
+        /* COMPRUEBA QUE TOME LOS PRIMEROS VALORES */
+        Entrega *iterador = firstTreeMap(distancias);
+        printf("\nID - Distancia\n");
+        while(iterador){
+            printf("%d %.2lf\n", iterador->id, iterador->distancia_punto);
+            iterador = nextTreeMap(distancias);
+        }
+
+        int id;
+        iterador = firstTreeMap(distancias);
+        id = iterador->id;
+
+        entrega = firstList(ruta->faltantes);
+        for(int i = 0 ; i < cont ; i++){
+            if(entrega->id == id){
+                distancia_total += distancia_dos_entregas(entrega->coordenadas[0], entrega->coordenadas[1], x, y);
+                copiar_Ciudad(entrega, ruta->recorridas);
+                popCurrent(ruta->faltantes);
+                x = entrega->coordenadas[0];
+                y = entrega->coordenadas[1];
+                break;
+            }
+            entrega = nextList(ruta->faltantes);
+        }
+    }
+
+    ruta->distancia_recorrida = distancia_total;
+
+    char nombreRecorrido[20];
+    strcpy(nombreRecorrido,"ruta optima");
+    strcpy(ruta->nombre,nombreRecorrido);
+    insertTreeMap(rutas,&ruta->distancia_recorrida,ruta);
+
+    Entrega* aux = firstList(ruta->recorridas);
+    printf("\nLa ruta optima es: ");
+    printf("%d ",aux->id);
+    Entrega* aux2 = nextList(ruta->recorridas);
+    while(aux!=aux2){
+        printf("%d ",aux2->id);
+        aux2 = nextList(ruta->recorridas);
+    }
+
+    printf("\nLa distancia total recorrida es: %.2lf\n",ruta->distancia_recorrida);
+
+}
+
 /* 
 Ruta* CopiarRuta(Ruta* ruta){
     Ruta* new = (Ruta*)calloc(1,sizeof(Ruta));
