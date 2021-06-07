@@ -6,7 +6,7 @@
 * Case sensitive : El programa toma como diferentes, por ejemplo, ruta y Ruta, OJO!!.
 * Para compilar y ejecutar : 
 ```
-    gcc main.c list.c hashmap.c functions.c treemap.c -o Tarea3
+    gcc main.c list.c functions.c treemap.c stack.c -o Tarea3
     ./Tarea3
 ```
 
