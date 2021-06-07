@@ -352,10 +352,10 @@ void mejorar_ruta(TreeMap* rutas)
     }
     else
     {
-        id1 = rand() % (cont + 1);
+        id1 = rand() % cont + 1 ;
         do
         {
-            id2 = rand() % (cont + 1);
+            id2 = rand() % cont + 1;
         } while (id1 == id2);
     }
 
