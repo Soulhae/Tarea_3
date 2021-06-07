@@ -9,6 +9,9 @@
     gcc main.c list.c functions.c treemap.c stack.c -o Tarea3
     ./Tarea3
 ```
+* Para el caso 8 se utilizo un algortimo voraz ya que no logramos terminar y hacer funcionar 
+* el algoritmo de busqueda a tiempo. Entendemos que no es necesariamente la ruta mas corta,
+* pero es la solucion que encontramos por el momento.
 
 ## Aspectos positivos y a mejorar por el grupo
 
