@@ -308,24 +308,24 @@ void crear_ruta(List *entregas, TreeMap *rutas, int x, int y){
 void mejorar_ruta(TreeMap* rutas)
 {
     Ruta* aux = firstTreeMap(rutas);
-    if(!aux)
+    if(aux == NULL)
     {
         printf("Aun no hay rutas generadas!\n");
         return;
     }
 
-    char nombre[50];
-    printf("Ingrese el nombre de la ruta buscada: \n");
-    scanf("%s", &nombre);
+    char nombre[20];
+    printf("Ingrese el nombre de la ruta buscada: ");
     getchar();
+    fgets(nombre, 20, stdin);
     
-    while(!aux)
+    while(aux != NULL)
     {
         if(strcmp(nombre, aux->nombre) == 0) break;
         aux = nextTreeMap(rutas);
     }
 
-    if(!aux)
+    if(aux == NULL)
     {
         printf("No se encontro una ruta con ese nombre!\n");
         return;
