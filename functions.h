@@ -24,4 +24,6 @@ void mostrar_rutas(TreeMap *rutas);
 
 void crear_ruta(List *entregas, TreeMap *rutas, int x, int y);
 
+void mejorar_ruta(TreeMap* rutas);
+
 #endif /* FUNCTIONS_H */
