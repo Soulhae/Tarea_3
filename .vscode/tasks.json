@@ -10,6 +10,7 @@
                 "${fileDirname}\\functions.c",
                 "${fileDirname}\\list.c",
                 "${fileDirname}\\treemap.c",
+                "${fileDirname}\\stack.c",
 
                 "-o",
                 "${fileDirname}\\main.exe"

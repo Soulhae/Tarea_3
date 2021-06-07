@@ -5,6 +5,7 @@
 #include <math.h>
 #include "list.h"
 #include "treemap.h"
+#include "stack.h"
 
 typedef struct{
    int id; /* id */
@@ -375,4 +376,111 @@ void mejorar_ruta(TreeMap* rutas)
     
 
 
+}
+
+Ruta* CopiarRuta(Ruta* ruta){
+    Ruta* new = (Ruta*)calloc(1,sizeof(Ruta));
+    *new = *ruta;
+    return new;
+}
+
+void RemoverEntrega(Entrega* entrega, Ruta* ruta){
+    Entrega* aux = firstList(ruta->faltantes);
+    int cont = listSize(ruta->faltantes);
+    for(int i = 0 ; i < cont ; i++){
+            if(aux->id == entrega->id){
+                popCurrent(ruta->faltantes);
+                break;
+            }
+            aux = nextList(ruta->faltantes);
+        }
+}
+
+List* NodosAdj(Ruta* ruta){
+    List* list = createList();
+    Ruta* nueva;
+    Entrega* cont = firstList(ruta->faltantes);
+    Entrega* first = firstList(ruta->faltantes);
+    Entrega* aux1 = firstList(ruta->recorridas);
+    int cont1 = listSize(ruta->faltantes);
+    for(int i = 0; i<cont1 ; i++){
+        nueva = CopiarRuta(ruta);
+        Entrega* aux = (Entrega*)calloc(1,sizeof(Entrega));
+        *aux = *first;
+        RemoverEntrega(first,nueva);
+        pushBack(nueva->recorridas,aux);
+        nueva->distancia_recorrida = distancia_dos_entregas(first->coordenadas[0],first->coordenadas[1],aux1->coordenadas[0],aux1->coordenadas[1])+nueva->distancia_recorrida;
+        first = nextList(ruta->faltantes);
+    }
+    return list;
+}
+
+Ruta* DFS(Ruta* ruta){
+    Stack* S = createStack();
+    push(S, ruta);
+    Ruta* final;
+    while(!is_empty(S)){
+        Ruta* n= top(S);
+        pop(S);
+        if(listSize(n->faltantes)==0){
+            printf("a5\n");
+            final = (Ruta*)calloc(1,sizeof(Ruta));
+            printf("a6\n");
+            if(final->distancia_recorrida<n->distancia_recorrida){
+                final = n;
+            }
+        }else{
+            List* l=NodosAdj(n);
+            printf("a7\n");
+            Ruta* adj=firstList(l);
+            printf("a8\n");
+            Ruta* cont=firstList(l);
+            printf("a9\n");
+            do{
+                push(S,adj);
+                printf("a10\n");
+                adj=nextList(l);
+            }while(adj!=cont);
+            printf("a11\n");
+        }
+    }
+	return final;
+}
+
+void Funcion8(TreeMap *rutas, List* entregas){
+    printf("ingrese la coordenada x");
+    int x;
+    scanf("%d",&x);
+    printf("ingrese la coordenada y");
+    int y;
+    scanf("%d",&y);
+    Entrega* inicio = (Entrega*)calloc(1,sizeof(Entrega));
+    inicio->coordenadas[0] = x;
+    inicio->coordenadas[1] = y;
+    Ruta* ruta = (Ruta*)calloc(1,sizeof(Ruta));
+    ruta->faltantes = createList();
+    ruta->recorridas = createList();
+    ruta->faltantes = entregas;
+    pushBack(ruta->recorridas,inicio);
+    List* lista = createList();
+    Entrega* axu1 = firstList(entregas);
+    Entrega* axu = firstList(entregas);
+    do{
+      pushBack(lista,axu1);
+      axu1=nextList(entregas);          
+    }while(axu1!=axu);
+    ruta->faltantes = lista;
+    ruta = DFS(ruta);
+    printf("a\n");
+    printf("La ruta mas optima es la siguiente: \n");
+    Entrega* cont = firstList(ruta->recorridas);
+    Entrega* cont1 = firstList(ruta->recorridas);
+    printf("a\n");
+    do{
+      printf("%d\n",cont->id);
+      cont=nextList(entregas);          
+    }while(cont1!=cont);
+    printf("La distancia en esta ruta es de %d\n",ruta->distancia_recorrida);
+    strcpy(ruta->nombre, "ruta optima");
+    insertTreeMap(rutas,&ruta->distancia_recorrida,ruta);
 }
