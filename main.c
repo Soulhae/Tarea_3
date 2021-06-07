@@ -64,7 +64,6 @@ int main(){
 
                 TreeMap *distancias = createTreeMap(lower_than_double);
                 crear_ruta(entregas, rutas, x, y);
-                
                 break;
             case 5:; /* Generar ruta aleatoria */
                 ruta_aleatoria(entregas, rutas);
